@@ -1,0 +1,24 @@
+{
+  "name": "cms-app",
+  "version": "1.0.0",
+  "description": "Module 12 Challenge - Content Management System(CMS)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surpritam/cms-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surpritam/cms-app/issues"
+  },
+  "homepage": "https://github.com/surpritam/cms-app#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "pg": "^8.12.0"
+  }
+}

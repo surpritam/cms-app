@@ -34,12 +34,12 @@ async function mainMenu() {
 
 async function promptAddDepartment() {
     const answer = await inquirer.prompt({
-      name: 'name',
-      type: 'input',
-      message: 'Enter the name of the department:',
+        name: 'name',
+        type: 'input',
+        message: 'Enter the name of the department:',
     });
     const newDepartment = await addDepartment(answer.name);
     console.log(`Added department: ${newDepartment.name}`);
-  }
+}
 
 mainMenu();

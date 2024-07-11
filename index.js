@@ -1,12 +1,12 @@
 const inquirer = require('inquirer');
-const { getDepartments, getRoles, getEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole } = require('./queries');
+const { getDepartments, getRoles, getEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole, getEmployeesByManager, getEmployeesByDepartment } = require('./queries');
 
 async function mainMenu() {
     const answer = await inquirer.prompt({
         name: 'action',
         type: 'list',
         message: 'What would you like to do?',
-        choices: ['View Departments', 'View Roles', 'View Employees', 'Add Department', 'Add a Role', 'Add an Employee', 'Update an Employee Role', 'Exit'],
+        choices: ['View Departments', 'View Roles', 'View Employees', 'View Employees by Manager', 'View Employees by Department', 'Add Department', 'Add a Role', 'Add an Employee', 'Update an Employee Role', 'Exit'],
     });
 
     switch (answer.action) {
@@ -21,6 +21,12 @@ async function mainMenu() {
         case 'View Employees':
             const employees = await getEmployees();
             console.table(employees);
+            break;
+        case 'View Employees by Manager':
+            await promptViewEmployeesByManager();
+            break;
+        case 'View Employees by Department':
+            await promptViewEmployeesByDepartment();
             break;
         case 'Add Department':
             await promptAddDepartment();
@@ -39,6 +45,36 @@ async function mainMenu() {
     }
 
     mainMenu();
+}
+
+async function promptViewEmployeesByManager() {
+    const employees = await getEmployees();
+    const managerChoices = employees.map(({ id, first_name, last_name }) => ({ name: `${first_name} ${last_name}`, value: id }));
+
+    const answer = await inquirer.prompt({
+        name: 'manager_id',
+        type: 'list',
+        message: 'Select a manager to view their employees:',
+        choices: managerChoices,
+    });
+
+    const employeesByManager = await getEmployeesByManager(answer.manager_id);
+    console.table(employeesByManager);
+}
+
+async function promptViewEmployeesByDepartment() {
+    const departments = await getDepartments();
+    const departmentChoices = departments.map(({ id, name }) => ({ name, value: id }));
+
+    const answer = await inquirer.prompt({
+        name: 'department_id',
+        type: 'list',
+        message: 'Select a department to view its employees:',
+        choices: departmentChoices,
+    });
+
+    const employeesByDepartment = await getEmployeesByDepartment(answer.department_id);
+    console.table(employeesByDepartment);
 }
 
 async function promptAddDepartment() {

@@ -19,6 +19,30 @@ async function getEmployees() {
     return res.rows;
 }
 
+async function getEmployeesByManager(manager_id) {
+    const res = await pool.query(
+        `SELECT employee.id, employee.first_name, employee.last_name, role.title AS job_title, department.name AS department, role.salary, 
+              (SELECT CONCAT(manager.first_name, ' ', manager.last_name) 
+               FROM employee AS manager WHERE manager.id = employee.manager_id) AS manager 
+       FROM employee 
+       LEFT JOIN role ON employee.role_id = role.id 
+       LEFT JOIN department ON role.department_id = department.id 
+       WHERE employee.manager_id = $1`, [manager_id]);
+    return res.rows;
+}
+
+async function getEmployeesByDepartment(department_id) {
+    const res = await pool.query(
+        `SELECT employee.id, employee.first_name, employee.last_name, role.title AS job_title, department.name AS department, role.salary, 
+              (SELECT CONCAT(manager.first_name, ' ', manager.last_name) 
+               FROM employee AS manager WHERE manager.id = employee.manager_id) AS manager 
+       FROM employee 
+       LEFT JOIN role ON employee.role_id = role.id 
+       LEFT JOIN department ON role.department_id = department.id 
+       WHERE department.id = $1`, [department_id]);
+    return res.rows;
+}
+
 async function addDepartment(name) {
     const res = await pool.query('INSERT INTO department (name) VALUES ($1) RETURNING *', [name]);
     return res.rows[0];
@@ -39,4 +63,4 @@ async function updateEmployeeRole(employee_id, new_role_id) {
     return res.rows[0];
 }
 
-module.exports = { getDepartments, getRoles, getEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole };
+module.exports = { getDepartments, getRoles, getEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole, getEmployeesByManager, getEmployeesByDepartment};

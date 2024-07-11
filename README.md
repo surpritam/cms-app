@@ -1,5 +1,4 @@
-# cms-app
-Module 12 Challenge - Content Management System(CMS)
+# Module 12 Challenge
 
 # Employee Management CLI
 
@@ -19,7 +18,7 @@ This is a command-line application to manage departments, roles, and employees w
 
 ## Table of Contents
 
-- [cms-app](#cms-app)
+- [Module 12 Challenge](#module-12-challenge)
 - [Employee Management CLI](#employee-management-cli)
   - [Features](#features)
   - [Table of Contents](#table-of-contents)
@@ -50,7 +49,7 @@ This is a command-line application to manage departments, roles, and employees w
       node setup.js
       ```
    2. Follow the prompts to manage your departments, roles, and employees.
-      Here's a [demo](https://drive.google.com/file/d/1Yb-4-tEYbz3HCabp0Ni-Nl6V74cxxz4p/view?usp=drive_link) on how to use this application
+      Here's a [demo](https://drive.google.com/file/d/1DkBlh8gylvqfPnyjgu2qQC6BKU_ye8xB/view?usp=drive_link) on how to use this application
 
 ## Technologies Used
 
